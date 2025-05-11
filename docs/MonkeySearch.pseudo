@@ -1,0 +1,184 @@
+Algorithm: Monkey Search Algorithm (MSA)
+
+// Main Algorithm
+FUNCTION MonkeySearchAlgorithm(objective_function, dimension, population_size, lower_bound, upper_bound, max_iterations)
+    // Initialize algorithm parameters
+    climbing_step ← 0.2
+    somersault_range ← 2.0
+    
+    // Initialize monkey population with random positions
+    monkeys ← ARRAY[population_size]
+    FOR i ← 0 TO population_size - 1 DO
+        monkeys[i] ← InitializeMonkey(dimension, lower_bound, upper_bound)
+        monkeys[i].fitness ← objective_function(monkeys[i].position)
+    END FOR
+    
+    // Find initial best monkey
+    best_monkey ← FindBestMonkey(monkeys)
+    
+    // Main iteration loop
+    FOR iteration ← 0 TO max_iterations - 1 DO
+        // Climb process (local search)
+        FOR EACH monkey IN monkeys DO
+            ClimbProcess(monkey, objective_function, dimension, lower_bound, upper_bound, climbing_step)
+        END FOR
+        
+        // Watch-jump process (social learning)
+        FOR EACH monkey IN monkeys DO
+            WatchJumpProcess(monkey, monkeys, population_size, objective_function, dimension, lower_bound, upper_bound)
+        END FOR
+        
+        // Somersault process (global exploration)
+        SomersaultProcess(monkeys, population_size, dimension, objective_function, lower_bound, upper_bound, somersault_range)
+        
+        // Update best solution found
+        current_best ← FindBestMonkey(monkeys)
+        IF current_best.fitness < best_monkey.fitness THEN
+            best_monkey ← current_best.Clone()
+        END IF
+        
+        // Optional: Print progress information
+        IF iteration % 10 = 0 OR iteration = 0 THEN
+            PRINT "Iteration ", (iteration + 1), ", Best Fitness: ", best_monkey.fitness
+        END IF
+    END FOR
+    
+    RETURN best_monkey.position
+END FUNCTION
+
+// Initialize a monkey with random position
+FUNCTION InitializeMonkey(dimension, lower_bound, upper_bound)
+    monkey ← NEW Monkey()
+    monkey.position ← ARRAY[dimension]
+    
+    FOR i ← 0 TO dimension - 1 DO
+        monkey.position[i] ← lower_bound + Random() * (upper_bound - lower_bound)
+    END FOR
+    
+    monkey.fitness ← INFINITY
+    RETURN monkey
+END FUNCTION
+
+// Find the monkey with best fitness in population
+FUNCTION FindBestMonkey(monkeys)
+    best_index ← 0
+    
+    FOR i ← 1 TO LENGTH(monkeys) - 1 DO
+        IF monkeys[i].fitness < monkeys[best_index].fitness THEN
+            best_index ← i
+        END IF
+    END FOR
+    
+    RETURN monkeys[best_index]
+END FUNCTION
+
+// Climb process - Local search within current area
+FUNCTION ClimbProcess(monkey, objective_function, dimension, lower_bound, upper_bound, climbing_step)
+    position ← monkey.position
+    current_fitness ← monkey.fitness
+    
+    FOR i ← 0 TO dimension - 1 DO
+        // Try climbing up
+        new_position ← COPY(position)
+        new_position[i] ← position[i] + climbing_step
+        
+        // Ensure within bounds
+        new_position[i] ← MIN(new_position[i], upper_bound)
+        
+        // Evaluate new position
+        new_fitness ← objective_function(new_position)
+        
+        IF new_fitness < current_fitness THEN
+            position ← new_position
+            current_fitness ← new_fitness
+        ELSE
+            // Try climbing down
+            new_position ← COPY(position)
+            new_position[i] ← position[i] - climbing_step
+            
+            // Ensure within bounds
+            new_position[i] ← MAX(new_position[i], lower_bound)
+            
+            // Evaluate new position
+            new_fitness ← objective_function(new_position)
+            
+            IF new_fitness < current_fitness THEN
+                position ← new_position
+                current_fitness ← new_fitness
+            END IF
+        END IF
+    END FOR
+    
+    // Update monkey with improved position (if any)
+    monkey.position ← position
+    monkey.fitness ← current_fitness
+END FUNCTION
+
+// Watch-jump process - Move toward another monkey with better fitness
+FUNCTION WatchJumpProcess(monkey, monkeys, population_size, objective_function, dimension, lower_bound, upper_bound)
+    // Select random monkey from population
+    random_index ← FLOOR(Random() * population_size)
+    target_monkey ← monkeys[random_index]
+    
+    // Only jump if target monkey has better fitness
+    IF target_monkey.fitness < monkey.fitness THEN
+        position ← monkey.position
+        target_position ← target_monkey.position
+        new_position ← ARRAY[dimension]
+        
+        FOR i ← 0 TO dimension - 1 DO
+            // Random jump factor between 0 and 1
+            jump_factor ← Random()
+            
+            // Jump toward target monkey
+            new_position[i] ← position[i] + jump_factor * (target_position[i] - position[i])
+            
+            // Ensure within bounds
+            new_position[i] ← MAX(lower_bound, MIN(new_position[i], upper_bound))
+        END FOR
+        
+        // Evaluate new position
+        new_fitness ← objective_function(new_position)
+        
+        // Update monkey if new position is better
+        IF new_fitness < monkey.fitness THEN
+            monkey.position ← new_position
+            monkey.fitness ← new_fitness
+        END IF
+    END IF
+END FUNCTION
+
+// Somersault process - Move to a new area using center of gravity
+FUNCTION SomersaultProcess(monkeys, population_size, dimension, objective_function, lower_bound, upper_bound, somersault_range)
+    // Calculate center of gravity
+    center_of_gravity ← ARRAY[dimension]
+    FILL(center_of_gravity, 0)
+    
+    FOR EACH monkey IN monkeys DO
+        FOR i ← 0 TO dimension - 1 DO
+            center_of_gravity[i] ← center_of_gravity[i] + monkey.position[i] / population_size
+        END FOR
+    END FOR
+    
+    // Somersault each monkey around center of gravity
+    FOR EACH monkey IN monkeys DO
+        position ← monkey.position
+        new_position ← ARRAY[dimension]
+        
+        FOR i ← 0 TO dimension - 1 DO
+            // Random somersault factor between -somersault_range and +somersault_range
+            somersault_factor ← somersault_range * (Random() * 2 - 1)
+            
+            // Somersault around center of gravity
+            new_position[i] ← center_of_gravity[i] + somersault_factor * (position[i] - center_of_gravity[i])
+            
+            // Ensure within bounds
+            new_position[i] ← MAX(lower_bound, MIN(new_position[i], upper_bound))
+        END FOR
+        
+        // Evaluate and update monkey with new position
+        new_fitness ← objective_function(new_position)
+        monkey.position ← new_position
+        monkey.fitness ← new_fitness
+    END FOR
+END FUNCTION
