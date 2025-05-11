@@ -6,7 +6,7 @@ public class Main {
         // Define the objective function (we're trying to minimize this function)
         ObjectiveFunction function = new SphereFunction();
         
-        // Algorithm parameters
+        // Algorithm parameters 
         int dimension = 5;        // Dimension of the search space
         int populationSize = 20;  // Number of monkeys
         double lowerBound = -10;  // Lower bound of search space

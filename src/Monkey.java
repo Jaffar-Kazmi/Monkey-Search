@@ -5,9 +5,9 @@
 public class Monkey {
     private double[] position;
     private double fitness;
-    
+
     /**
-     * Create a new monkey with the given position.
+     * Create a new monkey with the given position. 
      * 
      * @param position The position of the monkey in the search space
      */
@@ -60,7 +60,6 @@ public class Monkey {
     
     /**
      * Set the fitness value of the monkey.
-     * 
      * @param fitness The new fitness value
      */
     public void setFitness(double fitness) {
