@@ -17,8 +17,8 @@ The Monkey Search Algorithm consists of three main processes:
 
 ## Sphere Function
 
-The Sphere function is a widely used benchmark in optimization problems. It is defined as the sum of the squares of its input variables:␣␣
-    f(x) = ∑(xᵢ²)         for i = 1 to n (where n is the number of dimensions) ␣␣
+The Sphere function is a widely used benchmark in optimization problems. It is defined as the sum of the squares of its input variables:<br>
+    f(x) = ∑(xᵢ²)        <\t> for i = 1 to n (where n is the number of dimensions)<br>
 This function is simple, convex, and continuous, with a global minimum at the origin (0, 0, ..., 0) where the function value is zero. Its smooth landscape and mathematical simplicity make it ideal for testing and comparing the performance of optimization algorithms, particularly in high-dimensional search spaces.
 
 
