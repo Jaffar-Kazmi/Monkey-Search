@@ -26,19 +26,10 @@ The Monkey Search Algorithm consists of three main processes:
 
 1. Clone this repository
 2. Ensure you have JDK installed and properly configured
-3. Install Node.js dependencies:
-```bash
-npm install
-```
 
 ## Usage
 
-Run the algorithm using npm:
-```bash
-npm start
-```
-
-Or compile and run manually:
+Compile and run manually:
 ```bash
 javac -d ./bin *.java
 java -cp ./bin Main
