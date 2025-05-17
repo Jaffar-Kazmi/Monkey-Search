@@ -57,8 +57,6 @@ The program will display:
 
 ## Example Output
 ```
-jaffar@ChamberOfSecrets:~/Documents/AOA Project/New/src$ java Main
-
 Starting Monkey Search Algorithm
 
 Parameters:
