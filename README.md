@@ -57,14 +57,20 @@ The program will display:
 
 ## Example Output
 ```
-Starting Monkey Search Algorithm with parameters:
-Dimension: 5
-Population Size: 20
-Search Space: [-10, 10]
-Maximum Iterations: 100
+jaffar@ChamberOfSecrets:~/Documents/AOA Project/New/src$ java Main
 
-Iterating...
-Iteration 1, Best Fitness: [value]
+Starting Monkey Search Algorithm
+
+Parameters:
+        Dimension: 5
+        Population Size: 20
+        Search Space: [-10.0, 10.0]
+        Maximum Iterations: 100
+
+        Iterations
+Iteration       Best Fitness
+[#]             [Value]
+
 ...
 Final Solution:
 Position: [x1, x2, x3, x4, x5]
