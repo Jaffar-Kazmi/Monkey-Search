@@ -31,8 +31,9 @@ The Monkey Search Algorithm consists of three main processes:
 
 Compile and run manually:
 ```bash
-javac -d ./bin *.java
-java -cp ./bin Main
+cd path/to/MonkeySearchProject
+javac *.java
+java Main
 ```
 
 ## Algorithm Parameters
