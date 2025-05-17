@@ -94,13 +94,15 @@ public class MonkeySearchAlgorithm {
      * @return The best solution found
      */
     public double[] run() {
-        System.out.println("Starting Monkey Search Algorithm with parameters:");
-        System.out.println("Dimension: " + dimension);
-        System.out.println("Population Size: " + populationSize);
-        System.out.println("Search Space: [" + lowerBound + ", " + upperBound + "]");
-        System.out.println("Maximum Iterations: " + maxIterations);
-        System.out.println("\nIterating...");
+        System.out.println("\nStarting Monkey Search Algorithm");
+        System.out.println("\nParameters:");
+        System.out.println("\tDimension: " + dimension);
+        System.out.println("\tPopulation Size: " + populationSize);
+        System.out.println("\tSearch Space: [" + lowerBound + ", " + upperBound + "]");
+        System.out.println("\tMaximum Iterations: " + maxIterations);
+        System.out.println("\n\tIterations");
         
+        System.out.println("Iteration\tBest Fitness");
         for (int iteration = 0; iteration < maxIterations; iteration++) {
             // Climb process
             for (Monkey monkey : monkeys) {
@@ -120,8 +122,8 @@ public class MonkeySearchAlgorithm {
             
             // Print progress
             if ((iteration + 1) % 10 == 0 || iteration == 0) {
-                System.out.println("Iteration " + (iteration + 1) + 
-                                   ", Best Fitness: " + bestMonkey.getFitness());
+                System.out.println((iteration + 1) + 
+                                   "\t\t" + bestMonkey.getFitness());
             }
         }
         
