@@ -1,6 +1,12 @@
-# Monkey Search Algorithm Implementation
+# 🐒 Monkey Search Algorithm
 
-This repository contains a Java implementation of the Monkey Search Algorithm (MSA), a nature-inspired optimization algorithm that mimics the behavior of monkeys searching for food in the forest.
+This project implements the Monkey Search Algorithm, a population-based metaheuristic inspired by the foraging and movement behavior of monkeys in the wild. It is designed to solve optimization problems by minimizing a given objective function — in this implementation, the **Sphere function** is used as a benchmark.
+
+## 📌 Features
+- Object-oriented Java implementation
+- Easy to extend with other objective functions
+- No external dependencies — runs on plain Java
+- Prints best fitness and position after each iteration
 
 ## Algorithm Overview
 
@@ -8,6 +14,15 @@ The Monkey Search Algorithm consists of three main processes:
 1. **Climb Process**: Local search within a tree (current solution space)
 2. **Watch-jump Process**: Moving between nearby trees (exploring neighboring solutions)
 3. **Somersault Process**: Moving to entirely new areas of the search space (global exploration)
+
+## Sphere Function
+
+The Sphere function is a widely used benchmark in optimization problems. It is defined as the sum of the squares of its input variables:
+```
+    f(x) = ∑(xᵢ²)        for i = 1 to n (where n is the number of dimensions)
+```
+This function is simple, convex, and continuous, with a global minimum at the origin (0, 0, ..., 0) where the function value is zero. Its smooth landscape and mathematical simplicity make it ideal for testing and comparing the performance of optimization algorithms, particularly in high-dimensional search spaces.
+
 
 ## Project Structure
 
@@ -26,22 +41,14 @@ The Monkey Search Algorithm consists of three main processes:
 
 1. Clone this repository
 2. Ensure you have JDK installed and properly configured
-3. Install Node.js dependencies:
-```bash
-npm install
-```
 
 ## Usage
 
-Run the algorithm using npm:
+Compile and run manually:
 ```bash
-npm start
-```
-
-Or compile and run manually:
-```bash
-javac -d ./bin *.java
-java -cp ./bin Main
+cd path/to/MonkeySearchProject
+javac *.java
+java Main
 ```
 
 ## Algorithm Parameters
@@ -65,14 +72,18 @@ The program will display:
 
 ## Example Output
 ```
-Starting Monkey Search Algorithm with parameters:
-Dimension: 5
-Population Size: 20
-Search Space: [-10, 10]
-Maximum Iterations: 100
+Starting Monkey Search Algorithm
 
-Iterating...
-Iteration 1, Best Fitness: [value]
+Parameters:
+        Dimension: 5
+        Population Size: 20
+        Search Space: [-10.0, 10.0]
+        Maximum Iterations: 100
+
+        Iterations
+Iteration       Best Fitness
+[#]             [Value]
+
 ...
 Final Solution:
 Position: [x1, x2, x3, x4, x5]
