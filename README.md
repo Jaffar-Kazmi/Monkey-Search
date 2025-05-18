@@ -1,8 +1,8 @@
-# 🐒 Monkey Search Algorithm
+# Monkey Search Algorithm
 
 This project implements the Monkey Search Algorithm, a population-based metaheuristic inspired by the foraging and movement behavior of monkeys in the wild. It is designed to solve optimization problems by minimizing a given objective function — in this implementation, the **Sphere function** is used as a benchmark.
 
-## 📌 Features
+## Features
 - Object-oriented Java implementation
 - Easy to extend with other objective functions
 - No external dependencies — runs on plain Java
